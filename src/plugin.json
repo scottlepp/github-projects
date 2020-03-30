@@ -1,0 +1,33 @@
+{
+  "name": "GithubProjects",
+  "id": "grafana-github-projects",
+  "type": "datasource",
+  "metrics": true,
+  "annotations": false,
+  "includes": [
+  ],
+  "routes": [
+  ],
+  "info": {
+    "description": "Github Projects Datasource",
+    "author": {
+      "name": "Grafana Labs",
+      "url": "http://github.com/grafana"
+    },
+    "keywords": [
+      "github", "projects"
+    ],
+    "logos": {
+    },
+    "links": [
+    ],
+    "screenshots": [
+    ],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "dependencies": {
+    "grafanaVersion": "6.5.x",
+    "plugins": []
+  }
+}
