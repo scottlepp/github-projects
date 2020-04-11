@@ -16,7 +16,7 @@ import projects from '../data/projects-clean.json';
 import { SqlQuery } from './types';
 // import { getBackendSrv } from '@grafana/runtime';
 // import alasql from 'alasql';
-import { execute } from './sql';
+import { execute, loaded } from './sql';
 
 export class DataSource extends DataSourceApi<SqlQuery, DataSourceJsonData> {
   /** @ngInject */
@@ -37,6 +37,8 @@ export class DataSource extends DataSourceApi<SqlQuery, DataSourceJsonData> {
     // const route = baseUrl.endsWith('/') ? 'query?' : '/query?';
 
     const opts = this.interpolate(options);
+
+    await loaded();
 
     const calls = opts.targets.map(target => {
       // const url = `${baseUrl}${route}sql=${target.sql}`;
@@ -92,12 +94,33 @@ export class DataSource extends DataSourceApi<SqlQuery, DataSourceJsonData> {
         }
         return { name: field, type};
       });
-      dataFrame = new MutableDataFrame({ fields });
+      dataFrame = new MutableDataFrame({fields})
       array.forEach((row, index) => {
+
+        row.created_at = this.stringDateToMillis(row.created_at);
+        row.started = this.stringDateToMillis(row.started);
+        row.card_created = this.stringDateToMillis(row.card_created);
+        row.card_updated = this.stringDateToMillis(row.card_updated);
+
         dataFrame.appendRow(Object.values(row));
+        // dataFrame.add(row, true)
       });
+      // for (const field of dataFrame.fields) {
+      //   if (["created_at", "started", "card_created", "card_updated"].includes(field.name)) {
+      //     field.type = FieldType.time;
+      //     // TODO - iterate over values and convert from string to number
+      //     field.values = 
+      //   }
+      // }
     }
     return dataFrame;
+  }
+
+  stringDateToMillis(value) {
+    if (value !== undefined) {
+      return Date.parse(value);
+    }
+    return value;
   }
 
   interpolate(options: DataQueryRequest<SqlQuery>): DataQueryRequest<SqlQuery> {
