@@ -89,7 +89,7 @@ export class DataSource extends DataSourceApi<SqlQuery, DataSourceJsonData> {
     if (array.length > 0) {
       const fields = Object.keys(array[0]).map(field => {
         let type = guessFieldTypeFromValue(array[0][field]);
-        if (["created_at", "started", "card_created", "card_updated"].includes(field)) {
+        if (["created_at", "started", "card_created", "card_updated", "ended"].includes(field)) {
           type = FieldType.time;
         }
         return { name: field, type};
@@ -97,10 +97,18 @@ export class DataSource extends DataSourceApi<SqlQuery, DataSourceJsonData> {
       dataFrame = new MutableDataFrame({fields})
       array.forEach((row, index) => {
 
-        row.created_at = this.stringDateToMillis(row.created_at);
-        row.started = this.stringDateToMillis(row.started);
-        row.card_created = this.stringDateToMillis(row.card_created);
-        row.card_updated = this.stringDateToMillis(row.card_updated);
+        // if (row.created_at) {
+        //   row.created_at = this.stringDateToMillis(row.created_at);
+        // }
+        // if (row.started) {
+        //   row.started = this.stringDateToMillis(row.started);
+        // }
+        // if (row.card_created) {
+        //   row.card_created = this.stringDateToMillis(row.card_created);
+        // }
+        // if (row.card_updated) {
+        //   row.card_updated = this.stringDateToMillis(row.card_updated);
+        // }
 
         dataFrame.appendRow(Object.values(row));
         // dataFrame.add(row, true)
@@ -117,7 +125,7 @@ export class DataSource extends DataSourceApi<SqlQuery, DataSourceJsonData> {
   }
 
   stringDateToMillis(value) {
-    if (value !== undefined) {
+    if (value !== undefined && value !== null) {
       return Date.parse(value);
     }
     return value;

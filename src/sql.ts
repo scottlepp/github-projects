@@ -1,5 +1,6 @@
 // import alasql from 'alasql';  // TODO - blows up
 
+// workaround
 import { load } from 'js-loader'
 
 export function execute(sql, data) {
@@ -7,7 +8,16 @@ export function execute(sql, data) {
   const alasql = w.alasql;
   let results = [];
   try {
-    results =  alasql(sql, [data]);
+    let tables = [data];
+    if (sql.includes('JOIN')) {
+      tables = [data, data]
+    } else {
+      const queries = sql.split('?');
+      if (queries.length > 1) {
+        tables = [data, data]
+      }
+    }
+    results =  alasql(sql, tables);
   } catch (e) {
     console.error(e);
   }
