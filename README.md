@@ -1,33 +1,17 @@
-# SqlProxy Grafana Datasource
+# GitHub Projects Grafana Datasource
 
 ## Features
 
-Connect and Query from any SQL Datasource (oracle, microsoft sql server, postgresql, mysql, snowflake, etc)
+Observe GitHib Projects
 
 ## How to install the plugin:
 
 1. Install Grafana
-2. Clone this repo to the grafana plugins folder (`git clone https://github.com/grafana/sqlproxy-grafana-datasource /var/lib/grafana/plugins/sqlproxy-grafana-datasource`)
+2. Clone this repo to the grafana plugins folder (`git clone https://github.com/grafana/github-projects /var/lib/grafana/plugins/github-projects`)
 
-## SQL Proxy 
+## Using the plugin
 
-This datasource is dependent upon the SQL Proxy container. https://github.com/scottlepp/sql-proxy
-
-For a quick local setup you can use Docker to run the container.  Once Docker is installed run the following to start the container:
-
-```
-docker run -p 8080:8080 scottlepper/sql-proxy
-```
-
-The proxy will now be running on port 8080.
-
-Follow the instructions here to connect to the SQL Proxy:  https://github.com/scottlepp/sql-proxy#using-the-proxy
-
-## Using the SqlProxy plugin
-
-In the Grafana Datasource setup, set the URL to the proxy: http://localhost:8080
-
-From the dashboard, add a panel and select SQL Proxy from the Query dropdown.  You will see a SQL Editor.
+From the dashboard, add a panel and select GitHub Projects from the Query dropdown.  You will see a SQL Editor.
 
 Enter your SQL and click away to run the SQL command and get results into the panel.
 
@@ -41,16 +25,16 @@ Grafana only reads the `dist` folder, and must be included with any release.
 ## Developing without docker
 
 1. Install Grafana
-2. `git clone https://github.com/scottlepp/grafana-sqlproxy-datasource`
-3. `cd grafana-sqlproxy-datasource`
+2. `git clone https://github.com/scottlepp/github-projects`
+3. `cd github-projects`
 4. `yarn install --pure-lockfile`
 5. `yarn watch` or `yarn dev`
 
 ## Developing with docker
 
-1. `git clone https://github.com/grafana/grafana-sqlproxy-datasource`
-2. `cd grafana-sqlproxy-datasource`
-3. `` docker run -d -p 3000:3000 --name grafana -v `pwd`:/var/lib/grafana/plugins/grafana-sqlproxy-datasource/ grafana/grafana ``
+1. `git clone https://github.com/grafana/github-projects`
+2. `cd github-projects`
+3. `` docker run -d -p 3000:3000 --name grafana -v `pwd`:/var/lib/grafana/plugins/github-projects/ grafana/grafana ``
 4. `yarn install --pure-lockfile`
 5. `yarn watch`
 
@@ -64,7 +48,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./dist:/var/lib/grafana/plugins/grafana-sqlproxy-datasource
+      - ./dist:/var/lib/grafana/plugins/github-projects
       - ${GRAFANA_PROVISIONING:-./provisioning}:/etc/grafana/provisioning
       - ${HOME}:${HOME}
     environment:
