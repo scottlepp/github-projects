@@ -26,7 +26,7 @@
   "dependencies": {
     "@babel/compat-data": "7.8.0",
     "alasql": "^0.5.8",
-    "codemirror": "^5.51.0",
+    "codemirror": "^5.58.2",
     "react-codemirror2": "^6.0.0",
     "xlsx": "^0.15.6"
   },
