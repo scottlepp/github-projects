@@ -28,7 +28,7 @@
     "alasql": "^0.5.8",
     "codemirror": "^5.51.0",
     "react-codemirror2": "^6.0.0",
-    "xlsx": "^0.15.6"
+    "xlsx": "^0.17.0"
   },
   "resolutions": {
     "@babel/preset-env": "^7.8.0"
